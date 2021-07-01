@@ -1,5 +1,9 @@
 const itemList = document.querySelector('#item-list');
 
+var storage = firebase.storage();
+
+var storageRef = storage.ref();
+
 async function getCowData(doc)  {
     var str = "";
     // Not very elegant, but I searched for an hour for an alternative and couldn't find one!
