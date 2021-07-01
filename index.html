@@ -1,0 +1,35 @@
+<html>
+    <!--Imports-->
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-storage.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>    </head>
+    <body>
+
+        <h1>Roper21</h1>
+        <img/>
+        
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+              apiKey: "AIzaSyB5ixoFUTwc2s3fpqSWCefJ3yE_j7BGF3s",
+              authDomain: "ropersolutions-7ef26.firebaseapp.com",
+              databaseURL: "https://ropersolutions-7ef26.firebaseio.com",
+              projectId: "ropersolutions-7ef26",
+              storageBucket: "ropersolutions-7ef26.appspot.com",
+              messagingSenderId: "58576512711",
+              appId: "1:58576512711:web:48b5c9fb4e4f38e79ec0e2",
+              measurementId: "G-T6VQB547BH"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            db.settings({timestampsInSnapshots: true})
+        </script>
+        <script src="app.js"></script>
+    </body>
+</html>
