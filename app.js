@@ -38,6 +38,25 @@ function renderCow(doc) {
 db.collection('prototype cows').get().then(snapshot => {
     snapshot.docs.forEach(doc => {
         console.log("Cow name:" + doc.data().name);
-        renderCow(doc);
+        //renderCow(doc);
     })
 })
+
+
+db.collection('DataUpdates').get().then(snapshot => {
+    snapshot.docs.forEach(doc => {
+        console.log("Course: " + doc.data().Course);
+        //console.log("Serial Number: " + doc.data()["Serial Number"]);
+        //if(doc.data().Serial_Number);
+    })
+})
+
+/*db.collection('prototype cows').doc(doc.id).get().then(snapshot => {
+    console.log("getting cow data");
+    str = str.concat("Last Update: ");
+
+    str = str.concat(doc.data()["last update"]);
+    str = str.concat("\n");
+    console.log("hey" + str);
+});
+*/
