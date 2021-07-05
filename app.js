@@ -5,18 +5,23 @@ var storage = firebase.storage();
 var storageRef = storage.ref();
 
 async function getCowData(doc)  {
-    var str = "";
+    const lastSortedData = await db.collection('Last DataUpdate Sorted').doc('0').get();
+    if (!lastSortedData.exists) {
+        console.log('Last DataUpdate sorted unknown');
+    }
+    const lastSortedID = lastSortedData.data()["last number"];
+
+    const UnsortedDataUpdates = await db.collection('DataUpdates').where(firebase.firestore.FieldPath.documentId(), ">", lastSortedID).get();
+    console.log(UnsortedDataUpdates);
+    UnsortedDataUpdates.docs.forEach((doc) => {
+        console.log("dream o' me")
+        console.log(doc.data());
+    });
+
+
     // Not very elegant, but I searched for an hour for an alternative and couldn't find one!
-    await db.collection('prototype cows').doc(doc.id)
-        .collection('tags').orderBy("text").get().then(snapshot => {
-            console.log("getting cow data");
-            snapshot.docs.forEach( doc => {
-                str = str.concat("Last Weigh-in: ");
-                str = str.concat(doc.data().last_weight_in);
-                str = str.concat("\n");
-            })
-        })
-    return str;
+    await db.collection('prototype cows').doc(doc.id).get().then(snapshot => {
+     });
 }
 
 function renderCow(doc) {
@@ -26,7 +31,7 @@ function renderCow(doc) {
     
     // retrieve tags
     getCowData(doc).then(str => {
-        tagList.textContent = str;
+        cowData.textContent = str;
     });
 
     li.appendChild(cowData);
@@ -35,9 +40,9 @@ function renderCow(doc) {
 
 
 // renders each item in the Items collection in Firebase
-db.collection('prototype cows').get().then(snapshot => {
+db.collection('Serial Number Cows').get().then(snapshot => {
     snapshot.docs.forEach(doc => {
-        console.log("Cow name:" + doc.data().name);
+        console.log("name: " + doc.data().name);
         renderCow(doc);
     })
 })
