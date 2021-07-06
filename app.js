@@ -18,20 +18,17 @@ async function sortCowUpdates()  {
         // get cow of same serial number
         var currSerial = doc.data()["Serial Number"];
         console.log(currSerial);
-        db.collection("Cows").where('currSerial', '==', currSerial).get().then((data) => {
-            if(data.size < 1) {
+        db.collection("Cows").where('currSerial', '==', currSerial).get().then((snapshot) => {
+            if(snapshot.size < 1) {
                 console.log("Serial number not found");
                 return;
             }
-            if(data.size > 1) {
+            if(snapshot.size > 1) {
                 throw 'Warning. Multiple Cows With ' + currSerial;
                 //console.log("Warning. Multiple cows with " + currSerial);
             }
           
-            data.forEach(cow => {
-                console.log(cow.data().name);
-
-            });
+            console.log(snapshot.docs[0])
 
         });
         // store serial number in serial numbers collection
