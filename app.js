@@ -16,23 +16,28 @@ async function sortCowUpdates()  {
     const UnsortedDataUpdates = await db.collection('DataUpdates').where(firebase.firestore.FieldPath.documentId(), ">", "202106231350475844").get();
     UnsortedDataUpdates.docs.forEach((doc) => {
         // get cow of same serial number
-        var currSerialNumber = doc.data()["Serial Number"];
-        console.log(currSerialNumber);
-        db.collection("Serial Number Cows").where('currSerialNumber', '==', currSerialNumber).get().then((data) => {
+        var currSerial = doc.data()["Serial Number"];
+        console.log(currSerial);
+        db.collection("Cows").where('currSerial', '==', currSerial).get().then((data) => {
             if(data.size < 1) {
                 console.log("Serial number not found");
                 return;
             }
+            if(data.size > 1) {
+                throw 'Warning. Multiple Cows With ' + currSerial;
+                //console.log("Warning. Multiple cows with " + currSerial);
+            }
+          
             data.forEach(cow => {
                 console.log(cow.data().name);
+
             });
-            if(data.size > 1) {
-                console.log("Warning. Multiple cows with " + currSerialNumber + " as current serial number. Using data for only " + cow.name);
-            }
 
         });
         // store serial number in serial numbers collection
     });
+
+    
 }
 
 sortCowUpdates();
